@@ -1,4 +1,5 @@
 using API.Extentions;
+using API.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -12,6 +13,8 @@ builder.Services.AddApplicationServices(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -35,7 +38,7 @@ try
 }
 catch (Exception ex)
 {
-    
+
     var logger = services.GetRequiredService<ILogger<Program>>();
     logger.LogError(ex, "An Error occured during migration");
 }
