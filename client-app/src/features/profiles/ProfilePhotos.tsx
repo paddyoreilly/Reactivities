@@ -45,7 +45,7 @@ export default observer(function ProfilePhotos({ profile }: Props) {
                         <Card.Group itemsPerRow={5}>
                             {profile.photos?.map(photo => (
                                 <Card key={photo.id}>
-                                    <Image src={photo.url} />
+                                    <Image src={photo.url} key={photo.id} />
                                     {isCurrentUser && (
                                         <Button.Group fluid widths={2}>
                                             <Button
