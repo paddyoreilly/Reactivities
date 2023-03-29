@@ -1,4 +1,5 @@
 using Application.Activities;
+using Application.Core;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +9,9 @@ namespace API.Controllers
     public class ActivitiesController : BaseAPIController
     {
         [HttpGet] //api/activities
-        public async Task<IActionResult> GetActivities()
+        public async Task<IActionResult> GetActivities([FromQuery] ActivityParams param)
         {
-            return HandleResult(await Mediator.Send(new List.Query()));
+            return HandlePagedResult(await Mediator.Send(new List.Query { Params = param }));
         }
 
         [HttpGet("{id}")] //api/activities/dfdfdfdd
@@ -45,7 +46,7 @@ namespace API.Controllers
         [HttpPost("{id}/attend")]
         public async Task<IActionResult> Attend(Guid id)
         {
-            return HandleResult(await Mediator.Send(new UpdateAttendance.Command{Id = id}));
+            return HandleResult(await Mediator.Send(new UpdateAttendance.Command { Id = id }));
         }
     }
 }
