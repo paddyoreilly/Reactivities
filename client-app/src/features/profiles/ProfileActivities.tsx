@@ -42,7 +42,7 @@ export default observer(function ProfileActivities() {
                     {loadingActivities ? <LoadingComponent content="Loading Activities..." /> :
                         <Card.Group itemsPerRow={4}>
                             {userActivities.map(activity => (
-                                <Card as={Link} to={`/activities/${activity.id}`}>
+                                <Card as={Link} to={`/activities/${activity.id}`} key={activity.id}>
                                     <Image src={`/assets/categoryImages/${activity.category}.jpg`} style={{ objectFit: 'cover' }} />
                                     <Card.Content textAlign="center">
                                         <Card.Header>{activity.title}</Card.Header>
